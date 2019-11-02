@@ -210,7 +210,7 @@ class BaseFilterSet:
         applied to the queryset before it is cached.
         """
         for name, value in self.form.cleaned_data.items():
-            queryset = self.filters[name].filter(queryset, value)
+            queryset = self.filters[name].filter(queryset._next_is_sticky(), value)
             assert isinstance(
                 queryset, models.QuerySet
             ), "Expected '%s.%s' to return a QuerySet, but got a %s instead." % (
